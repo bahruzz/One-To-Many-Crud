@@ -1,0 +1,69 @@
+﻿@model ProductEditVM
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<main id="main" class="main">
+    <div class="container mt-5">
+        <div class="image">
+            @foreach (var item in Model.Images)
+            {
+
+                <form class="d-inline" method="post" asp-action="isMain" asp-route-id="@item.Id">
+                    <button class="btn btn-warning text-white btn-sm" style="@(item.Ismain?"display:none; ":"")"><i class="ti-marker">SetIsMain</i></button>
+                </form>
+                <form class="d-inline" method="post" asp-action="imagedelete" asp-route-id="@item.Id">
+                    <button type="submit" class="btn btn-danger text-white btn-sm"><i class="ti-trash">Delete</i></button>
+                </form>
+
+
+             
+                <img src="~/img/@item.Image" style="@(item.Ismain ?"border:1px solid blue":"");   width:300px; height:200px" />
+
+            }
+        </div>
+        <form class="crt" method="post" asp-action="Edit" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" id="inputText">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                    <input asp-for="Description" class="form-control" id="inputText">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
+                <div class="col-sm-10">
+                    <input asp-for="Price" type="number" class="form-control" step="any" min="0" id="inputText">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+
+                    <select asp-for="CategoryId" asp-items="@ViewBag.categories" class="form-control"></select>
+
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Images</label>
+                <div class="col-sm-10">
+                    <input asp-for="NewImages" class="form-control" id="inputText">
+                    <span asp-validation-for="NewImages" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-secondary" asp-action="Index">Close</a>
+            </div>
+        </form><!-- End Horizontal Form -->
+
+    </div>
+</main>
